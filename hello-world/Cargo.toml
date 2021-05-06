@@ -34,7 +34,7 @@ path = "../sapio-base"
 version = "0.1.0"
 [lib]
 crate-type = ["cdylib", "rlib"]
-path = "src/plugin.rs"
+path = "src/hello.rs"
 
 
 
