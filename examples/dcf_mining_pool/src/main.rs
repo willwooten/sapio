@@ -7,7 +7,6 @@ use crate::contract::Context;
 use crate::miner_payout::MiningPayout;
 use crate::miner_payout::PoolShare;
 use bitcoin::hash_types::BlockHash;
-use bitcoin::Address;
 use bitcoin::Amount;
 use bitcoin::Block;
 use bitcoin::PublicKey;
@@ -38,7 +37,7 @@ impl BlockNotes {
             for out in coinbase.output.iter() {
                 if out.script_pubkey.is_op_return() {
                     match out.script_pubkey.as_bytes() {
-                        [OP_RETURN, 123, 45, 67, 89, tail @ ..] => {
+                        [106, 123, 45, 67, 89, tail @ ..] => {
                             if tail.len() == 33 {
                                 key = PublicKey::from_slice(tail).ok();
                                 if key.is_some() {
@@ -122,10 +121,10 @@ impl Coordinator {
             v.await;
         }
 
-        let mut tip = *tip_in;
+        let tip = *tip_in;
         let mut known_participants = vec![];
         // ensure our cache has all relevant info
-        for i in 0..n {
+        for _ in 0..n {
             let note = self.cache[&tip].clone();
             let note_r = note.read().unwrap();
             if note_r.participated == Some(true) {
@@ -155,7 +154,7 @@ impl Coordinator {
     }
 }
 
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 struct MiningPool {
     blocks: Vec<Arc<RwLock<BlockNotes>>>,
     tip: Arc<RwLock<BlockNotes>>,
