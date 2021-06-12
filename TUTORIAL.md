@@ -20,7 +20,7 @@ Sapio is written in the [Rust](https://rustup.rs/) programming language. You can
         
         cd plugin-example && wasm-pack build && cd ..
 
-Your terminal should be in the `sapio` directory and your environment is be ready to go.
+Your terminal should be in the `sapio` directory and your environment is ready to go.
 
 ## Sending a Transaction
 We are going to create a contract to send a payment to a specific UTXO. The cli command we will use is `contract create` which is defined here:
@@ -217,7 +217,7 @@ impl Contract for PayThese {
 }
 ```
 
-Next we do the same for the **TreePay** struct and contract field inside.
+Next we do the same for the **TreePay** struct and **Contract** field inside.
 
 ```rust
 impl TreePay {
