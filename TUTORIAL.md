@@ -28,8 +28,8 @@ We are going to create a contract to send a payment to a specific UTXO. The cli 
     sapio   
     └─── cli
         └─── main.rs
-            |   contract - line 176
-            |   create - line 332
+            ├── contract - line 176
+            ├── create - line 332
 
 `contract create` takes the arguments:
 * amount: the amount to send in btc
@@ -44,9 +44,9 @@ The contract itself is located in the `plugin.rs` file, and the wasm plugin file
     sapio   
     └─── plugin-example
         └─── src
-            └─── plugin.rs
+            ├── plugin.rs
         └───pkg
-            └─── sapio_wasm_plugin_example_bg.wasm.d.ts
+            ├── sapio_wasm_plugin_example_bg.wasm.d.ts
 
 We are ready to instantiate a contract. Before we do let's break the terminal command down:
 
@@ -55,7 +55,7 @@ We are ready to instantiate a contract. Before we do let's break the terminal co
 * `contract create`
   * the cli command and subcommand
 * `9.99`
-  * the **amount** argument in denominated in bitcoin
+  * the **amount** argument denominated in bitcoin
 * `"{\"participants\": [{\"amount\": 9.99, \"address\": \"bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw\"}], \"radix\": 2, \"fee_sats_per_tx\": 0}"`
   * the **json** argument with the sub-argument: participants {amount, address}, radix, and fees_sats_per_tx
   * clean json formatted:
@@ -78,7 +78,7 @@ We are ready to instantiate a contract. Before we do let's break the terminal co
 
 Now, in the terminal run the complete command:
 
-    cargo run --bin sapio-cli -- contract create 9.99 "{\"participants\": [{\"amount\": 9.99, \"address\": \"bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw\"}], \"radix\": 2, \"fee_sats_per_tx\": 0}" --file="plugin-example/pkg/sapio_wasm_plugin_example_bg.wasm" >> sapio-example.json
+    cargo run --bin sapio-cli -- contract create 9.99 "{\"participants\": [{\"amount\": 9.98009, \"address\": \"bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw\"}], \"radix\": 2, \"fee_sats_per_tx\": 1000}" --file="plugin-example/pkg/sapio_wasm_plugin_example_bg.wasm" >> sapio-example.json
 
 After running, take a look at the saved `sapio-example.json` file. Many of the attributes will be familiar to anyone that's looked at a bitcoin transaction:
 
@@ -163,7 +163,7 @@ pub struct Payment {
 ```
 
 Next, two more public structures are created:
-* **TreePay** with the fields **particpants** (a vector), **radix**, and **fees_sats_per_tx** (denominated in sats)
+* **TreePay** with the fields **participants** (a vector), **radix**, and **fees_sats_per_tx** (denominated in sats)
 * **PayThese** with the fields **contracts** and **fees**
 
 ```rust
